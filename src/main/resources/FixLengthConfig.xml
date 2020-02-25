@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<flconfig>
+	<field name="unknown1">
+		<start>1</start>
+		<end>41</end>
+	</field>
+	<field name="ip">
+		<start>42</start>
+		<end>80</end>
+	</field>
+	<field name="unknown3">
+		<start>81</start>
+		<end>386</end>
+	</field>
+	<field name="email">
+		<start>387</start>
+		<end>436</end>
+	</field>
+	<field name="id">
+		<start>438</start>
+		<end>447</end>
+	</field>
+	<field name="id2">
+		<start>449</start>
+		<end>468</end>
+	</field>
+	<field name="id3">
+		<start>470</start>
+		<end>475</end>
+	</field>
+	<field name="name">
+		<start>477</start>
+		<end>576</end>
+	</field>
+	<field name="cardtype">
+		<start>584</start>
+		<end>627</end>
+	</field>
+	<field name="cardtype2">
+		<start>630</start>
+		<end>679</end>
+	</field>
+</flconfig>
