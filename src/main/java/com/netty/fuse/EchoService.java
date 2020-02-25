@@ -16,8 +16,10 @@ import org.tempuri.Service1;
 import org.tempuri.Service1Soap;
 
 import com.netty.fuse.util.Email;
+import com.netty.fuse.util.FixLengthConf;
+import com.netty.fuse.util.FixLengthMessageIn;
+import com.netty.fuse.util.FixLengthMessageOut;
 import com.netty.fuse.util.ISOUtil;
-
 
 @Service
 public class EchoService {
@@ -30,52 +32,114 @@ public class EchoService {
 		// 2020012015165500658100000000658100PDFMAIL|didik.haryadi@kebhana.co.id
 		// |5473010100|460221******9999 |123456|DIDIK HARYADI |Kartu Debit VISA IDR |
 		// VISA IDR Debit Card |@@";
-		String word = inputVal;
-		String guess = "|";
-		word = "|" + word;
-		int index = word.indexOf(guess);
-		List<String> al = new ArrayList<String>();// creating new generic arraylist
-		List<String> paramInputList = new ArrayList<String>();
-		while (index >= 0) {
-			index = word.indexOf(guess, index + 1);
+//		String word = inputVal;
+//		String guess = "|";
+//		word = "|" + word;
+//		int index = word.indexOf(guess);
+//		List<String> al = new ArrayList<String>();// creating new generic arraylist
+//		List<String> paramInputList = new ArrayList<String>();
+//		while (index >= 0) {
+//			index = word.indexOf(guess, index + 1);
+//
+//			if (index != -1) {
+//				System.out.println(index);
+//				al.add(String.valueOf(index));
+//			}
+//
+//		}
+//		System.out.println("==========");
+//		ISOUtil isoUtil = new ISOUtil();
+//		for (int i = 0; i < al.size(); i++) {
+//			System.out.println(al.get(i));
+//			int val = isoUtil.ordinalIndexOf(word, "|", i + 3);
+//			System.out.println("-->> " + val);
+//			if (val == -1) {
+//
+//			} else {
+//				System.out.println("---->> " + word.substring(Integer.parseInt(al.get(i)) + 1, val));
+//				paramInputList.add(word.substring(Integer.parseInt(al.get(i)) + 1, val));
+//			}
+//		}
+		List<FixLengthMessageIn> flconfList = new ArrayList<FixLengthMessageIn>();
+		FixLengthConf conf = new FixLengthConf();
+		flconfList = conf.getConf();
+		String email = "";
+		String id = "";
+		String id2 = "";
+		String id3 = "";
+		String name = "";
+		String cardtype = "";
+		String cardtype2 = "";
+		System.out.println("========Fix Length Config BEFORE========");
+		for (int i = 0; i < flconfList.size(); i++) {
 
-			if (index != -1) {
-				System.out.println(index);
-				al.add(String.valueOf(index));
+			System.out.println("field name :" + flconfList.get(i).getFieldName());
+			System.out.println("start :" + flconfList.get(i).getIndexStart());
+			System.out.println("end :" + flconfList.get(i).getIndexEnd());
+			String fieldName = flconfList.get(i).getFieldName().toString();
+			int start = Integer.parseInt(flconfList.get(i).getIndexStart().toString());
+			int end = Integer.parseInt(flconfList.get(i).getIndexEnd().toString());
+			System.out.println("=====================================");
+			String value = inputVal.substring(start - 1, end);
+			flconfList.set(i,
+					new FixLengthMessageIn(fieldName, String.valueOf(start), String.valueOf(end), value.trim()));
+			if (fieldName.equals("email")) {
+				email = value;
 			}
-
-		}
-		System.out.println("==========");
-		ISOUtil isoUtil = new ISOUtil();
-		for (int i = 0; i < al.size(); i++) {
-			System.out.println(al.get(i));
-			int val = isoUtil.ordinalIndexOf(word, "|", i + 3);
-			System.out.println("-->> " + val);
-			if (val == -1) {
-
-			} else {
-				System.out.println("---->> " + word.substring(Integer.parseInt(al.get(i)) + 1, val));
-				paramInputList.add(word.substring(Integer.parseInt(al.get(i)) + 1, val));
+			if (fieldName.equals("id")) {
+				id = value;
+			}
+			if (fieldName.equals("id2")) {
+				id2 = value;
+			}
+			if (fieldName.equals("id3")) {
+				id3 = value;
+			}
+			if (fieldName.equals("name")) {
+				name = value;
+			}
+			if (fieldName.equals("cardtype")) {
+				cardtype = value;
+			}
+			if (fieldName.equals("cardtype2")) {
+				cardtype2 = value;
 			}
 		}
+		System.out.println("========Fix Length Config AFTER========");
+
+		System.out.println("email :" + email);
+		System.out.println("id :" + id);
+		System.out.println("id2 :" + id2);
+		System.out.println("id3 :" + id3);
+		System.out.println("name :" + name);
+		System.out.println("cardtype :" + cardtype);
+		System.out.println("cardtype2 :" + cardtype2);
+		System.out.println("=====================================");
+
 		// 2. Use the unpacked values as input to client services
 
-		SendEmailRev1 sendEmail = new SendEmailRev1();
-		SendEmailRev1Response emailResponse = new SendEmailRev1Response();
-		Service1 service1 = new Service1();
-		Service1Soap service1Soap = service1.getService1Soap();
-		String sendEmailResponse = "";
-		sendEmailResponse = service1Soap.sendEmailRev1(paramInputList.get(0).toString(),
-				paramInputList.get(0).toString(), paramInputList.get(0).toString(), paramInputList.get(0).toString(),
-				paramInputList.get(0).toString(), paramInputList.get(0).toString(), paramInputList.get(0).toString());
+//		SendEmailRev1 sendEmail = new SendEmailRev1();
+//		SendEmailRev1Response emailResponse = new SendEmailRev1Response();
+//		Service1 service1 = new Service1();
+//		Service1Soap service1Soap = service1.getService1Soap();
+//		String sendEmailResponse = "";
+//		sendEmailResponse = service1Soap.sendEmailRev1(paramInputList.get(0).toString(),
+//				paramInputList.get(0).toString(), paramInputList.get(0).toString(), paramInputList.get(0).toString(),
+//				paramInputList.get(0).toString(), paramInputList.get(0).toString(), paramInputList.get(0).toString());
 		// 3.If the response is 'Mail Sent!' then pack ISO8583
-		String result = "Mail Sent !!";
-		if (sendEmailResponse.equals("Mail Sent !!")) {
-
-		} else {
-			result = "no response";
-		}
+//		System.out.println("Response soap send email : " + sendEmailResponse);
+//		String result = "Mail Sent !!";
+//		if (sendEmailResponse.equals("Mail Sent !!")) {
+//
+//		} else {
+//			result = "no response";
+//		}
 		System.out.println("Generate response...");
-		return "00000379020200120hliapp01E31___AAAAAFGi01192.168.87.61                          11-22-33-44 TEXTEXT00000SA20200120151655280151655000                        0024HOS_EAR0000120200120151655280100            R10KRXTN                0024EB1                                                       1000000085SWDKWSCONS9999                              2020012015165500658100000000658191PDFMAIL@@";
+		FixLengthMessageOut flout = new FixLengthMessageOut();
+		// return "00000379020200120hliapp01E31___AAAAAFGi01192.168.87.61 11-22-33-44
+		// TEXTEXT00000SA20200120151655280151655000 0024HOS_EAR0000120200120151655280100
+		// R10KRXTN 0024EB1 1000000085SWDKWSCONS9999
+		// 2020012015165500658100000000658191PDFMAIL@@";
+		return flout.generateFl();
 	}
 }
