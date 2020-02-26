@@ -118,28 +118,23 @@ public class EchoService {
 
 		// 2. Use the unpacked values as input to client services
 
-//		SendEmailRev1 sendEmail = new SendEmailRev1();
-//		SendEmailRev1Response emailResponse = new SendEmailRev1Response();
-//		Service1 service1 = new Service1();
-//		Service1Soap service1Soap = service1.getService1Soap();
-//		String sendEmailResponse = "";
-//		sendEmailResponse = service1Soap.sendEmailRev1(paramInputList.get(0).toString(),
-//				paramInputList.get(0).toString(), paramInputList.get(0).toString(), paramInputList.get(0).toString(),
-//				paramInputList.get(0).toString(), paramInputList.get(0).toString(), paramInputList.get(0).toString());
+		SendEmailRev1 sendEmail = new SendEmailRev1();
+		SendEmailRev1Response emailResponse = new SendEmailRev1Response();
+		Service1 service1 = new Service1();
+		Service1Soap service1Soap = service1.getService1Soap();
+		String sendEmailResponse = "";
+		sendEmailResponse = service1Soap.sendEmailRev1(email, id, id2, id3, name, cardtype, cardtype2);
 		// 3.If the response is 'Mail Sent!' then pack ISO8583
-//		System.out.println("Response soap send email : " + sendEmailResponse);
-//		String result = "Mail Sent !!";
-//		if (sendEmailResponse.equals("Mail Sent !!")) {
-//
-//		} else {
-//			result = "no response";
-//		}
+		System.out.println("Response soap send email : " + sendEmailResponse);
+		// String result = "Mail Sent !!";
+		if (sendEmailResponse.equals("Mail Sent !!")) {
+			System.out.println("SOAP Response : " + sendEmailResponse);
+		} else {
+			// result = "no response";
+			System.out.println("SOAP Response : " + sendEmailResponse);
+		}
 		System.out.println("Generate response...");
-		FixLengthMessageOut flout = new FixLengthMessageOut();
-		// return "00000379020200120hliapp01E31___AAAAAFGi01192.168.87.61 11-22-33-44
-		// TEXTEXT00000SA20200120151655280151655000 0024HOS_EAR0000120200120151655280100
-		// R10KRXTN 0024EB1 1000000085SWDKWSCONS9999
-		// 2020012015165500658100000000658191PDFMAIL@@";
-		return flout.generateFl();
+		GenerateFixLength flout = new GenerateFixLength();
+		return flout.generate();
 	}
 }
