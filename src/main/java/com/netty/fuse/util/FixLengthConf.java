@@ -2,11 +2,15 @@ package com.netty.fuse.util;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +19,19 @@ public class FixLengthConf {
 	public List<FixLengthMessageIn> getConf() {
 
 		List<FixLengthMessageIn> flconf = new ArrayList<FixLengthMessageIn>();
+		Resource resource = new ClassPathResource("classpath:FixLengthConfig.xml");
+//        InputStream inputStream = resource.getInputStream();
+//        try {
+//            byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
+//            String data = new String(bdata, StandardCharsets.UTF_8);
+//            LOGGER.info(data);
+//        } catch (IOException e) {
+//            LOGGER.error("IOException", e);
+//        }
 		try {
 
-			File fXmlFile = new File("src/main/resources/FixLengthConfig.xml");
+//			File fXmlFile = new File("src/main/resources/FixLengthConfig.xml");
+			File fXmlFile = resource.getFile();
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
